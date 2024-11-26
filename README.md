@@ -13,9 +13,16 @@ In recent years, various features have been extracted from historical maps thank
 * dependencies: platform, libraries (for Python include a requirements.txt file)
 * compilation (if necessary)
 * usage: how to run your code
+
+# Tips
+
+* run SAM2 in environment py310_ljx
+* run others in environment pyljx_2
   
 # License
 ```
-  project_name - Jean Dupont    
+  project_name - Historical Map Analysis    
   Copyright (c) Year EPFL    
   This program is licensed under the terms of the [license]. 
+
+```

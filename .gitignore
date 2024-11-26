@@ -163,3 +163,11 @@ cython_debug/
 
 dataset/*
 !dataset/.keep
+
+segres/*
+result/*
+runs/*
+ImageBind/.checkpoints/*
+segment-anything-2/checkpoints/*
+turtle_tasks/*
+*.pth
