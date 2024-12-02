@@ -207,6 +207,10 @@ if __name__ == '__main__':
         file_name = file_path.stem  # 提取 '2229bb6b-5fad-4e2b-81ce-ccc204773598'
         # 组合结果
         file_path_result = f"{dir_name}/{file_name}"
+        save_path = './result/segres/'+file_path_result+'/'
+        # if save path exist then return
+        if Path(save_path).exists():
+            return
 
         
         #show example
@@ -215,7 +219,6 @@ if __name__ == '__main__':
 
 
         # save_path = './segres/'+os.path.splitext(os.path.basename(image_path))[0]+'/'
-        save_path = './result/segres/'+file_path_result+'/'
 
         autoMaskGenerator(sam2, image, save_path)
 
