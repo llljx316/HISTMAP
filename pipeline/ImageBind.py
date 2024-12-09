@@ -7,7 +7,7 @@ import numpy as np
 class ImageBindPipeline:
     def __init__(self):
 
-        self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
+        self.device = "cuda:1" if torch.cuda.is_available() else "cpu"
 
         # instantiate model
         self.model = imagebind_model.imagebind_huge(pretrained=True)

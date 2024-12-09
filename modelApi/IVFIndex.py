@@ -1,4 +1,5 @@
-
+import sys
+sys.path.append("..")
 import numpy as np
 import faiss
 import torch
@@ -35,17 +36,17 @@ class IVFIndex:
         # Add data to the index
         self.index.add(data)
 
-    def query(self, embedding):
-        D,I = self.index.search(np.array(embedding.detach().cpu()),10)
+    def query(self, embedding, num):
+        D,I = self.index.search(np.array(embedding.detach().cpu()),num)
         return np.array(self.id_info_list)[I[0]]
 
-    def query_text(self, text):
-        text_embedding = self.model.generate_word_embedding(text)
-        return self.query(text_embedding[ModalityType.TEXT])
+    def query_text(self, text, num=10):
+        text_embedding = self.model.generate_word_embedding([text])# must be list
+        return self.query(text_embedding[ModalityType.TEXT],num)
 
-    def query_image_path(self, img_path):
-        image_embedding = self.model.generate_image_embeddings(img_path)
-        return self.query(image_embedding[ModalityType.VISION])
+    def query_image_path(self, img_path, num=10):
+        image_embedding = self.model.generate_image_embeddings([img_path])
+        return self.query(image_embedding[ModalityType.VISION],num)
 
 
 

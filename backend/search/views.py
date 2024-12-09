@@ -30,9 +30,11 @@ def add_query(request):
 def query(request):
     # query = json.loads(request.body)
     query = request.GET.get('q')
-    input_data = {"text": query}
-    data =requests.post("http://127.0.0.1:8001/text_predict", json=input_data) 
+    num = request.GET.get('num',10)
+    # input_data = {"text": query}
+    input_data = query
+    data =requests.get("http://127.0.0.1:8001/text_predict", params={'text_input': query, 'num': num}) 
     # data = json.loads(data.text)
     # 
     # return JsonResponse(data, safe=False, status=400) 
-    return HttpResponse(data.text)
+    return HttpResponse(data.text) #
