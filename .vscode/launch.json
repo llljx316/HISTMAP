@@ -17,7 +17,7 @@
                 "--port",
                 "8001",
             ],
-            "cwd": "modelApi/"
+            "cwd": "${workspaceFolder}/modelApi/"
         },
         {
             "name": "Python Debugger: Django",

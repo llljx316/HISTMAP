@@ -8,10 +8,11 @@ from functools import partial
 import pickle
 import os
 from pathlib import Path
+from tqdm import tqdm 
 
 
 processor = AutoProcessor.from_pretrained("Salesforce/blip2-opt-2.7b") 
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
+device = "cuda:1" if torch.cuda.is_available() else "cpu"
 model = Blip2ForConditionalGeneration.from_pretrained("Salesforce/blip2-opt-2.7b", torch_dtype=torch.float16).to(device)
 text_ls = []
 text_dict = {}
@@ -48,23 +49,17 @@ def cluster_sentences(text_ls):
     pass
 
 # def semantic_filter()
-
-if __name__ == '__main__':
-    #generate sentence in a list
-    # blip_model("result/segres/Bodleian Library/0ac39b91-cd26-4d05-a47c-5439aef2747d/11.png", "The pattern is")
-    print(os.getcwd())
-    
-
-    
-    sub_dataset_dir = Path('result/segres')
-
+def sub_dataset_process(sub_dataset_dir:Path):
     # 列出第一层的内容
     first_level_dirs = [p.name for p in sub_dataset_dir.iterdir() if p.is_dir()]
 
-    for dir in first_level_dirs:
+    for dir in tqdm(first_level_dirs):
         relative_dir = sub_dataset_dir/dir
         print(relative_dir)
+        if (relative_dir/'text_res.pickle').exists():
+            continue
         text_dict = {}
+
         process_image = partial(blip_model, text_dict = text_dict)
         iterative_all_files(relative_dir, process_image, suffix_filter=[".png"])
         #delete the last [SEP]
@@ -75,6 +70,16 @@ if __name__ == '__main__':
         with open(relative_dir/'text_res.pickle', 'wb') as f:
             pickle.dump(text_dict, f)
 
+
+if __name__ == '__main__':
+    #generate sentence in a list
+    # blip_model("result/segres/Bodleian Library/0ac39b91-cd26-4d05-a47c-5439aef2747d/11.png", "The pattern is")
+    print(os.getcwd())
+    
+    dataset_dir = Path('result/segres/')
+    subfolders = [folder for folder in dataset_dir.iterdir() if folder.is_dir()]
+    for subfolder in subfolders:
+        sub_dataset_process(subfolder)
 
     # with open('./result/textres/text_embedding_style.pickle', 'wb') as pickle_file:
     #     pickle.dump(text_ls, pickle_file)

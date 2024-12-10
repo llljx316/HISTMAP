@@ -5,5 +5,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("add-query/", views.add_query, name='add_query'),
     path("query/", views.query, name = "query"),
-    # path("upload_img")
+    path("upload-img/", views.upload_image, name = "upload_img")
 ]

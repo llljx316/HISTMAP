@@ -1,4 +1,5 @@
 from pathlib import Path
+from tqdm import tqdm
 
 def iterative_all_files(directory, process_file, suffix_filter = None):
     # directory = 'dataset'  # dataset folder
