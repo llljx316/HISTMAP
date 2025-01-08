@@ -175,3 +175,5 @@ modelApi/trained_index_20.faiss
 modelApi/info_dict_new_datasets.pickle
 *.faiss
 *.pickle
+*.zip
+
